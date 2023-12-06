@@ -1,6 +1,35 @@
 const fs = require('fs');
 const path = require('path');
 
+// Path to the input.txt file
+const inputFile = path.join(__dirname, 'input.txt');
+
+// Read the contents of the file
+let fileContents;
+try {
+    fileContents = fs.readFileSync(inputFile, 'utf8');
+} catch (err) {
+    console.error('Error reading the file:', err);
+    return;
+}
+
+// Split the file content into lines
+const inputs = fileContents.split(/\r?\n/).map(line => {
+    // Trim the line
+    line = line.trim();
+
+    // Escape single quotes and replace double quotes with single quotes
+    line = line.replace(/'/g, "\\'").replace(/"/g, "'");
+    console.log('line after escaping apostrophe and replacing double quotes for single:', line);
+
+    // line = line.substring(2, line.length - 2);
+    // console.log('line after removing first and last two characters:', line);
+
+    return line;
+});
+
+
+
 function setValue(obj, path, value) {
     const keys = path.split('.');
     const lastKey = keys.pop();
@@ -36,8 +65,8 @@ function parseAndSet(obj, input) {
     const path = input.substring(0, colonIndex);
     const rawValue = input.substring(colonIndex + 1);
 
-    console.log('path:', path);
-    console.log('rawValue:', rawValue);
+    // console.log('path:', path);
+    // console.log('rawValue:', rawValue);
 
     const trimmedValue = rawValue.trim();
     let value;
@@ -45,17 +74,14 @@ function parseAndSet(obj, input) {
     // Check if the value is intended to be a JSON object
     if (trimmedValue.startsWith('{') && trimmedValue.endsWith('}')) {
         value = trimmedValue;
-        console.log('JSON value:', value);
         if ((trimmedValue.startsWith("'{") || trimmedValue.startsWith('{"')) && 
             (trimmedValue.endsWith("}'") || trimmedValue.endsWith('"}'))) {
             // Remove the first and last characters (quotes and braces)
             value = trimmedValue.slice(1, -1);
-            console.log('JSON value:', value);
         }
     } else {
         // If not JSON, treat as a string and remove surrounding quotes
         value = trimmedValue.replace(/^'(.*)'$/, '$1');
-        console.log('JSON value:', value);
     }
 
     setValue(obj, path, value);
@@ -63,12 +89,12 @@ function parseAndSet(obj, input) {
 
 // Example usage
 const obj = {};
-const inputs = [
-    "zip.commands.isFieldPresent.systemValidators.validators[]:{name: 'fieldPresent', params: {fieldName: 'zip'}}",
-    "zip.commands.isFieldPresent.systemValidators.valid.commands[]:'nextCommand:onFieldPresent'",
-    "zip.commands.isFieldPresent.systemValidators.invalid.commands[]:'nextCommand:onFieldEmpty'",
-    "zip.commands.onFieldPresent.systemMessage:'We have your zip code as <zip:spelledOut>. Is this correct?'"
-];
+// const inputs = [
+//     "zip.commands.isFieldPresent.systemValidators.validators[]:{name: 'fieldPresent', params: {fieldName: 'zip'}}",
+//     "zip.commands.isFieldPresent.systemValidators.valid.commands[]:'nextCommand:onFieldPresent'",
+//     "zip.commands.isFieldPresent.systemValidators.invalid.commands[]:'nextCommand:onFieldEmpty'",
+//     "zip.commands.onFieldPresent.systemMessage:'We have your zip code as <zip:spelledOut>. Is this correct?'"
+// ];
 
 inputs.forEach(input => parseAndSet(obj, input));
 
