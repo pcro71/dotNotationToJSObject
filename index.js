@@ -19,11 +19,10 @@ const inputs = fileContents.split(/\r?\n/).map(line => {
     line = line.trim();
 
     // Escape single quotes and replace double quotes with single quotes
-    line = line.replace(/'/g, "\\'").replace(/"/g, "'");
-    console.log('line after escaping apostrophe and replacing double quotes for single:', line);
+    line = line.replace(/'/g, "\\'").replace(/"/g, '"').replace(/\\'/g, "'").replace(/"/g, '');
+    //line = line.replace(/'/g, "\\'").replace(/"/g, '"').replace(/\\'/g, "'");
 
-    // line = line.substring(2, line.length - 2);
-    // console.log('line after removing first and last two characters:', line);
+    console.log('line after escaping apostrophe and replacing double quotes for single:', line);
 
     return line;
 });
@@ -89,12 +88,6 @@ function parseAndSet(obj, input) {
 
 // Example usage
 const obj = {};
-// const inputs = [
-//     "zip.commands.isFieldPresent.systemValidators.validators[]:{name: 'fieldPresent', params: {fieldName: 'zip'}}",
-//     "zip.commands.isFieldPresent.systemValidators.valid.commands[]:'nextCommand:onFieldPresent'",
-//     "zip.commands.isFieldPresent.systemValidators.invalid.commands[]:'nextCommand:onFieldEmpty'",
-//     "zip.commands.onFieldPresent.systemMessage:'We have your zip code as <zip:spelledOut>. Is this correct?'"
-// ];
 
 inputs.forEach(input => parseAndSet(obj, input));
 
