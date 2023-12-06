@@ -27,22 +27,35 @@ function setValue(obj, path, value) {
 }
 
 function parseAndSet(obj, input) {
-    const [path, rawValue] = input.split(':', 2);
+    const colonIndex = input.indexOf(':');
+    if (colonIndex === -1) {
+        console.log('No colon found in the string');
+        return; // or handle the case as needed
+    }
+
+    const path = input.substring(0, colonIndex);
+    const rawValue = input.substring(colonIndex + 1);
+
+    console.log('path:', path);
+    console.log('rawValue:', rawValue);
+
     const trimmedValue = rawValue.trim();
     let value;
 
     // Check if the value is intended to be a JSON object
     if (trimmedValue.startsWith('{') && trimmedValue.endsWith('}')) {
-        // Correctly parsing JSON object from the string
-        try {
-            value = JSON.parse(trimmedValue);  // DO I NEED TO BE DOING THIS?
-        } catch (e) {
-            console.error('Error parsing JSON:', e);
-            return;
+        value = trimmedValue;
+        console.log('JSON value:', value);
+        if ((trimmedValue.startsWith("'{") || trimmedValue.startsWith('{"')) && 
+            (trimmedValue.endsWith("}'") || trimmedValue.endsWith('"}'))) {
+            // Remove the first and last characters (quotes and braces)
+            value = trimmedValue.slice(1, -1);
+            console.log('JSON value:', value);
         }
     } else {
         // If not JSON, treat as a string and remove surrounding quotes
         value = trimmedValue.replace(/^'(.*)'$/, '$1');
+        console.log('JSON value:', value);
     }
 
     setValue(obj, path, value);
@@ -54,7 +67,7 @@ const inputs = [
     "zip.commands.isFieldPresent.systemValidators.validators[]:{name: 'fieldPresent', params: {fieldName: 'zip'}}",
     "zip.commands.isFieldPresent.systemValidators.valid.commands[]:'nextCommand:onFieldPresent'",
     "zip.commands.isFieldPresent.systemValidators.invalid.commands[]:'nextCommand:onFieldEmpty'",
-    "zip.commands.onFieldPresent.systemMessage:'We have your zip code as zip:spelledOut. Is this correct?'"
+    "zip.commands.onFieldPresent.systemMessage:'We have your zip code as <zip:spelledOut>. Is this correct?'"
 ];
 
 inputs.forEach(input => parseAndSet(obj, input));

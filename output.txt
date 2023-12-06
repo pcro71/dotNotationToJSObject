@@ -4,22 +4,22 @@
       "isFieldPresent": {
         "systemValidators": {
           "validators": [
-            "{name"
+            "{name: 'fieldPresent', params: {fieldName: 'zip'}}"
           ],
           "valid": {
             "commands": [
-              "'nextCommand"
+              "nextCommand:onFieldPresent"
             ]
           },
           "invalid": {
             "commands": [
-              "'nextCommand"
+              "nextCommand:onFieldEmpty"
             ]
           }
         }
       },
       "onFieldPresent": {
-        "systemMessage": "We have your zip code as zi"
+        "systemMessage": "We have your zip code as <zip:spelledOut>. Is this correct?"
       }
     }
   }
