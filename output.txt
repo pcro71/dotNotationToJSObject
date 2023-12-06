@@ -1,0 +1,26 @@
+{
+  "zip": {
+    "commands": {
+      "isFieldPresent": {
+        "systemValidators": {
+          "validators": [
+            "{name"
+          ],
+          "valid": {
+            "commands": [
+              "'nextCommand"
+            ]
+          },
+          "invalid": {
+            "commands": [
+              "'nextCommand"
+            ]
+          }
+        }
+      },
+      "onFieldPresent": {
+        "systemMessage": "We have your zip code as zi"
+      }
+    }
+  }
+}
