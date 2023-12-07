@@ -19,10 +19,10 @@ const inputs = fileContents.split(/\r?\n/).map(line => {
     line = line.trim();
 
     // Escape single quotes and replace double quotes with single quotes
-    line = line.replace(/'/g, "\\'").replace(/"/g, '"').replace(/\\'/g, "'").replace(/"/g, '');
-    //line = line.replace(/'/g, "\\'").replace(/"/g, '"').replace(/\\'/g, "'");
+    //line = line.replace(/'/g, "\\'").replace(/"/g, '"').replace(/\\'/g, "'").replace(/"/g, '');
+    line = line.replace(/'/g, "\\'").replace(/"/g, '"').replace(/\\'/g, "'");
 
-    console.log('line after escaping apostrophe and replacing double quotes for single:', line);
+    console.log('lines after processing:', line);
 
     return line;
 });
@@ -98,6 +98,7 @@ console.log('Attempting to write to:', outputPath);
 
 try {
     // Explicitly specifying encoding to ensure correct file format
+
     fs.writeFileSync(outputPath, JSON.stringify(obj, null, 2), 'utf8');
     console.log('Output saved to', outputPath);
 } catch (err) {

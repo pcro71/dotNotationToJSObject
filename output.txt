@@ -1,78 +1,78 @@
 {
   "zip": {
-    "contextFieldName": "zip",
-    "contextModelName": "leads",
-    "initialCommandName": "isFieldPresent",
+    "contextFieldName": "\"zip\"",
+    "contextModelName": "\"leads\"",
+    "initialCommandName": "\"isFieldPresent\"",
     "commands": {
       "isFieldPresent": {
         "systemValidators": {
           "validators": [
-            "{name: fieldPresent, params: {fieldName: zip}}"
+            "{name: \"fieldPresent\", params: {fieldName: \"zip\"}}"
           ],
           "valid": {
             "commands": [
-              "nextCommand:onFieldPresent"
+              "\"nextCommand:onFieldPresent\""
             ]
           },
           "invalid": {
             "commands": [
-              "nextCommand:onFieldEmpty"
+              "\"nextCommand:onFieldEmpty\""
             ]
           }
         }
       },
       "onFieldPresent": {
-        "systemMessage": "We have your zip code as <zip:spelledOut>. Is this correct?",
+        "systemMessage": "\"We have your zip code as <zip:spelledOut>. Is this correct?\"",
         "userValidators": {
           "validators": [
-            "{name: llmBooleanOrExtract, params: {prependInstructions: Attempt to extract and return the five digit zip code from the following user message. The zip code is 5 digits long and may be followed by 4 more digits. It also may be separated by whitespace. Note: users will sometimes say oh for zero.},pattern: ^[0-9]{5}$}"
+            "{name: \"llmBooleanOrExtract\", params: {prependInstructions: \"Attempt to extract and return the five digit zip code from the following user message. The zip code is 5 digits long and may be followed by 4 more digits. It also may be separated by whitespace. Note: users will sometimes say oh for zero.\"},pattern: \"^[0-9]{5}$\"}"
           ],
           "valid": {
-            "systemMessage": "Thank you for confirming!",
+            "systemMessage": "\"Thank you for confirming!\"",
             "commands": [
-              "topicComplete, nextTopic"
+              "\"topicComplete\", \"nextTopic\""
             ]
           },
           "invalid": {
-            "systemMessage": "I'm sorry,",
-            "commands": "[]nextCommand:onFieldEmpty"
+            "systemMessage": "\"I'm sorry, \"",
+            "commands": "[]\"nextCommand:onFieldEmpty\""
           },
           "extracted": {
-            "systemMessage": "Great,",
+            "systemMessage": "\"Great,\"",
             "commands": [
-              "nextCommand:onFieldPresent"
+              "\"nextCommand:onFieldPresent\""
             ]
           },
           "unknown": {
-            "systemMessage": "I'm sorry, I didn't understand that.",
+            "systemMessage": "\"I'm sorry, I didn't understand that.\"",
             "commands": [
-              "nextCommand:onFieldEmpty"
+              "\"nextCommand:onFieldEmpty\""
             ]
           }
         }
       },
       "onFieldEmpty": {
         "systemMessage": [
-          "Could you please tell me your zip code?"
+          "\"Could you please tell me your zip code?\""
         ],
         "userValidators": {
           "validators": [
-            "{name: llmBooleanOrExtract, params: {prependInstructions: Attempt to extract and return the five digit zip code from the following user message. The zip code is 5 digits long and may be followed by 4 more digits. It also may be separated by whitespace. Note: users will sometimes say oh for zero.},pattern: ^[0-9]{5}$}"
+            "{name: \"llmBooleanOrExtract\", params: {prependInstructions: \"Attempt to extract and return the five digit zip code from the following user message. The zip code is 5 digits long and may be followed by 4 more digits. It also may be separated by whitespace. Note: users will sometimes say oh for zero.\"},pattern: \"^[0-9]{5}$\"}"
           ]
         }
       },
       "onFieldempty": {
         "userValidators": {
           "extracted": {
-            "systemMessage": "Thank you! I have your zip as <zip: spelledOut>",
+            "systemMessage": "\"Thank you! I have your zip as <zip: spelledOut>\"",
             "commands": [
-              "topicComplete, nextTopic"
+              "\"topicComplete\", \"nextTopic\""
             ]
           },
           "unknown": {
-            "systemMessage": "I'm sorry, I didn't catch that.",
+            "systemMessage": "\"I'm sorry, I didn't catch that.\"",
             "commands": [
-              "nextCommand:onFieldEmpty"
+              "\"nextCommand:onFieldEmpty\""
             ]
           }
         }
