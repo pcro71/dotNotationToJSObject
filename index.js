@@ -88,13 +88,20 @@ function parseAndSet(obj, innerArray) {
 
         parsedData.forEach(innerArray => parseAndSet(obj, innerArray));
 
-        // Save the final object to a file
-        const outputPath = path.join(__dirname, 'output.txt');
-        console.log('Final object:', JSON.stringify(obj, null, 2));
+        // Extract the object name from the parsed data
+        let objectName = obj['zip'] && obj['zip']['contextFieldName'] ? obj['zip']['contextFieldName'] : 'Default';
+        objectName += 'Dialog';
+
+        // Ensure objectName is a valid JavaScript identifier
+        objectName = objectName.replace(/[^a-zA-Z0-9$_]/g, '');
+
+        // Construct the module content
+        const outputPath = path.join(__dirname, 'output.js');
         console.log('Attempting to write to:', outputPath);
 
-        fs.writeFileSync(outputPath, JSON.stringify(obj, null, 2), 'utf8');
-        console.log('Output saved to', outputPath);
+        const moduleContent = `const ${objectName} = ${JSON.stringify(obj, null, 2)};\nexport default ${objectName};`;
+        fs.writeFileSync(outputPath, moduleContent, 'utf8');
+        console.log('Module saved to', outputPath);
 
     } catch (error) {
         console.error("Error: ", error);
