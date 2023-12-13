@@ -75,9 +75,12 @@ async function processCSV(fileContent) {
     return;
   }
 
-  // Convert allDialogs to string
-  const allDialogsAsString = util.inspect(allDialogs, { depth: null, compact: false });
-  const jsContent = `const Dialogs = ${allDialogsAsString};\n\nexport default Dialogs;`;
+  let jsContent = '';
+  Object.keys(allDialogs).forEach(dialogName => {
+    jsContent += `const ${dialogName} = ${util.inspect(allDialogs[dialogName], { depth: null, compact: false })};\n\n`;
+  });
+  jsContent += `export default {${Object.keys(allDialogs).join(', ')}};`;
+  
 
   // Write to output.js file
   fs.writeFileSync("output.js", jsContent, "utf8");
