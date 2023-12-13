@@ -49,32 +49,35 @@ async function processCSV(fileContent) {
     inputs = await parseCSV(fileContent);
   } catch (error) {
     console.error("Error parsing CSV:", error);
+    return;
   }
 
-  let output = {};
+  let allDialogs = {}; // Object to store all dialogs
 
   try {
-    // Process the parsed data
-    output = inputs.reduce((acc, input) => {
-      // Directly access the first element of the input array and split it
-      const [path, ...rest] = input[0].split(":");
-      const value = rest.join(":").trim().replace(/"$/, "").replace(/^"/, "");
+    // Process each row in the CSV data as a separate record
+    inputs.forEach((record, recordIndex) => {
+      let dialogObject = {}; // Object to store the current dialog
 
-      createNestedObjectFromString(path, value, acc);
+      record.forEach(cell => {
+        const [path, ...rest] = cell.split(":");
+        const value = rest.join(":").trim().replace(/"$/, "").replace(/^"/, "");
 
-      return acc;
-    }, {});
+        createNestedObjectFromString(path, value, dialogObject);
+      });
+
+      // Assuming the first cell of each row contains the dialog name
+      const dialogName = Object.keys(dialogObject)[0] + "Dialog";
+      allDialogs[dialogName] = dialogObject;
+    });
   } catch (error) {
     console.error("Error processing CSV data:", error);
+    return;
   }
 
-  //console.log(util.inspect(output, { depth: null }));
-
-  // Extract the key for the object name and construct the file content
-  const firstKey = Object.keys(output)[0];
-  const objectName = firstKey + "Dialog";
-  const objectAsString = util.inspect(output, { depth: null, compact: false });
-  const jsContent = `const ${objectName} = ${objectAsString};\n\nexport default ${objectName};`;
+  // Convert allDialogs to string
+  const allDialogsAsString = util.inspect(allDialogs, { depth: null, compact: false });
+  const jsContent = `const Dialogs = ${allDialogsAsString};\n\nexport default Dialogs;`;
 
   // Write to output.js file
   fs.writeFileSync("output.js", jsContent, "utf8");
