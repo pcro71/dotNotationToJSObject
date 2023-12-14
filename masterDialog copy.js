@@ -281,7 +281,7 @@ const zipDialog = {
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user, "What is the five digit zip code that you live in?"  Please extract and return the five digit zip code from the following user message. The zip code is 5 digits long and may have one or more leading zeros. It also may be separated by whitespace. Note: users will sometimes say oh for zero."
+                instructionsOverride: "We asked the user, 'What is the five digit zip code that you live in?'  Please extract and return the five digit zip code from the following user message. The zip code is 5 digits long and may have one or more leading zeros. It also may be separated by whitespace. Note: users will sometimes say oh for zero."
               }
             },
             {
@@ -723,6 +723,7 @@ const home_ownershipDialog = {
   },
 };
 
+
 const birth_dateDialog = {
   birth_date: {
     contextFieldName: "birth_date",
@@ -903,7 +904,7 @@ const marital_statusDialog = {
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user about their marital status, "Are you single, married or divorced?"  Please extract their answer to the question as one of these three options."
+                instructionsOverride: "We asked the user about their marital status, 'Are you single, married or divorced?'  Please extract their answer to the question as one of these three options."
               }
             }
           ]
@@ -1006,7 +1007,7 @@ const phoneDialog = {
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user the following question, "What is your primary phone number including area code? Please say one number at a time starting with the area code."  Please extract their 10 digit phone number.  If they provided 11 numbers and the first number is a 1, please return just the 10 digits following the 1.  Note that consumers may say oh in place of zero."
+                instructionsOverride: "We asked the user the following question, 'What is your primary phone number including area code? Please say one number at a time starting with the area code.'  Please extract their 10 digit phone number.  If they provided 11 numbers and the first number is a 1, please return just the 10 digits following the 1.  Note that consumers may say oh in place of zero."
               }
             },
             {
@@ -1115,7 +1116,7 @@ const emailDialog = {
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user the following question, "Please spell out your personal email address.  For the email provider, you can just say at google dot com or at yahoo dot com."  Please extract the consumer's email address including the @ sign (don't us "at") and then the ESP and a period (sometimes said as dot) and the top level domain.  For example ted_murphy@yahoo.com"
+                instructionsOverride: "We asked the user the following question, 'Please spell out your personal email address.  For the email provider, you can just say at google dot com or at yahoo dot com.'  Please extract the consumer's email address including the @ sign (don't use 'at') and then the ESP and a period (sometimes said as dot) and the top level domain.  For example ted_murphy@yahoo.com"
               }
             },
             {
@@ -1325,7 +1326,7 @@ const license_statusDialog = {
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user, "Do you have a valid and current drivers license, permit or neither?"  Please extract their answer in the form of: drivers license, permit, neither"
+                instructionsOverride: "We asked the user, 'Do you have a valid and current drivers license, permit or neither?'  Please extract their answer in the form of: drivers license, permit, neither"
               }
             }
           ]
@@ -1629,7 +1630,7 @@ const vinDialog = {
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user, "What is the 17 character VIN number for the vehicle?  Please say letters as the letter with a word example.  For example, A as in apple."  Please extract the VIN.  A standard VIN is 17 characters long and includes a combination of digits and capital letters. It's important to note that the letters I (i), O (o), and Q (q) are not used in VINs to avoid confusion with the numbers 1 and 0."
+                instructionsOverride: "We asked the user, 'What is the 17 character VIN number for the vehicle?  Please say letters as the letter with a word example.  For example, A as in apple.'  Please extract the VIN.  A standard VIN is 17 characters long and includes a combination of digits and capital letters. It's important to note that the letters I (i), O (o), and Q (q) are not used in VINs to avoid confusion with the numbers 1 and 0."
               }
             },
             {
@@ -1738,7 +1739,7 @@ const yearDialog = {
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user, "What is the year of your vehicle."  Please extract the year."
+                instructionsOverride: "We asked the user, 'What is the year of your vehicle.'  Please extract the year."
               }
             },
             {
@@ -1839,14 +1840,14 @@ const makeDialog = {
       },
       onFieldEmpty: {
         systemMessage: [
-          "[if no VIN] What is the make of your vehicle?"
+          "What is the make of your vehicle?"
         ],
         userValidators: {
           validators: [
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user, "What is the make of your vehicle."  The make of a vehicle is the manufacturer, e.g., Volvo, General Motors, etc.  Please extract the make."
+                instructionsOverride: "We asked the user, 'What is the make of your vehicle.''  The make of a vehicle is the manufacturer, e.g., Volvo, General Motors, etc.  Please extract the make."
               }
             }
           ]
@@ -1948,7 +1949,7 @@ const modelDialog = {
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user, "What is the model of your vehicle."  The model of a vehicle refers to a specific version or design of a car made by a manufacturer. Each model has its own unique name or number (and sometimes both) which differentiates it from other models produced by the same manufacturer. For example, Toyota, produces the models Camry, Corolla, RAV4, and Prius. Please extract the model."
+                instructionsOverride: "We asked the user, 'What is the model of your vehicle.'  The model of a vehicle refers to a specific version or design of a car made by a manufacturer. Each model has its own unique name or number (and sometimes both) which differentiates it from other models produced by the same manufacturer. For example, Toyota, produces the models Camry, Corolla, RAV4, and Prius. Please extract the model."
               }
             }
           ]
@@ -1975,5 +1976,22 @@ const modelDialog = {
 };
 
 module.exports = {
-
-, first_nameDialog, last_nameDialog, zipDialog, stateDialog, cityDialog, addressDialog, home_ownershipDialog, birth_dateDialog, marital_statusDialog, phoneDialog, emailDialog, military_affiliationDialog, license_statusDialog, sr_22Dialog, currently_insuredDialog, vinDialog, yearDialog, makeDialog, modelDialog};
+  first_nameDialog,
+  last_nameDialog,
+  zipDialog,
+  stateDialog,
+  cityDialog,
+  addressDialog,
+  home_ownershipDialog,
+  birth_dateDialog,
+  marital_statusDialog,
+  phoneDialog,
+  emailDialog,
+  military_affiliationDialog,
+  license_statusDialog,
+  sr_22Dialog,
+  currently_insuredDialog,
+  vinDialog,
+  yearDialog,
+  makeDialog,
+  modelDialog};

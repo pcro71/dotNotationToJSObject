@@ -1,7 +1,7 @@
-const marital_statusDialog = {
-  marital_status: {
-    contextFieldName: "marital_status",
-    contextModelName: "drivers",
+const modelDialog = {
+  model: {
+    contextFieldName: "model",
+    contextModelName: "vehicles",
     initialCommandName: "isFieldPresent",
     commands: {
       isFieldPresent: {
@@ -10,7 +10,7 @@ const marital_statusDialog = {
             {
               name: "fieldPresent",
               params: {
-                fieldName: "marital_status"
+                fieldName: "model"
               }
             }
           ],
@@ -27,7 +27,6 @@ const marital_statusDialog = {
         }
       },
       onFieldPresent: {
-        systemMessage: "You are currently <marital_status>.  Is that correct?",
         userValidators: {
           validators: [
             {
@@ -68,14 +67,14 @@ const marital_statusDialog = {
       },
       onFieldEmpty: {
         systemMessage: [
-          "Are you single, married or divorced?"
+          "[if no VIN] What is the model of your vehicle?"
         ],
         userValidators: {
           validators: [
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user about their marital status, "Are you single, married or divorced?"  Please extract their answer to the question as one of these three options."
+                instructionsOverride: "We asked the user, "What is the model of your vehicle."  The model of a vehicle refers to a specific version or design of a car made by a manufacturer. Each model has its own unique name or number (and sometimes both) which differentiates it from other models produced by the same manufacturer. For example, Toyota, produces the models Camry, Corolla, RAV4, and Prius. Please extract the model."
               }
             }
           ]
@@ -101,4 +100,4 @@ const marital_statusDialog = {
   },
 };
 
-export default {marital_statusDialog};
+export default {modelDialog};
