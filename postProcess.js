@@ -11,13 +11,23 @@ fs.readFile(outputFile, "utf8", (err, data) => {
     return;
   }
 
-  // Replace single quotes with double quotes, but preserve apostrophes in contractions
-  let modifiedData = data.replace(/(\w)'(\w)/g, "$1\\'$2")  // Escape valid apostrophes
-                         .replace(/'/g, '"')               // Replace all single quotes with double quotes
-                         .replace(/\\'/g, "'");            // Unescape valid apostrophes
+  // Process the file content
+  let lines = data.split('\n');
+  lines = lines.map(line => {
+    // Replace single quotes with double quotes, but preserve apostrophes in contractions
+    let modifiedLine = line.replace(/(\w)'(\w)/g, "$1\\'$2")  // Escape valid apostrophes
+                           .replace(/'/g, '"')               // Replace all single quotes with double quotes
+                           .replace(/\\'/g, "'");            // Unescape valid apostrophes
 
-  // Replace \" with just an apostrophe
-  modifiedData = modifiedData.replace(/\\"/g, "'");
+    // Replace \" with just an apostrophe
+    return modifiedLine.replace(/\\"/g, "'");
+  });
+
+  // Filter out lines that only have '"": ""'
+  lines = lines.filter(line => !line.trim().match(/^"": ""$/));
+
+  // Join the lines back together
+  let modifiedData = lines.join('\n');
 
   // Write the modified content back to the file
   fs.writeFile(outputFile, modifiedData, "utf8", (err) => {

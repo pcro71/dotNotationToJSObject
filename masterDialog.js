@@ -620,10 +620,315 @@ const addressDialog = {
       }
     }
   },
-  "": ""
 };
 
-export default {addressDialog};
+const home_ownershipDialog = {
+  home_ownership: {
+    contextFieldName: "home_ownership",
+    contextModelName: "leads",
+    initialCommandName: "isFieldPresent",
+    commands: {
+      isFieldPresent: {
+        systemValidators: {
+          validators: [
+            {
+              name: "fieldPresent",
+              params: {
+                fieldName: "home_ownership"
+              }
+            }
+          ],
+          valid: {
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          invalid: {
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldPresent: {
+        systemMessage: "You [own/do not own] your current residence.  Correct?",
+        userValidators: {
+          validators: [
+            {
+              name: "llmBoolean"
+            },
+            {
+              name: "pattern",
+              params: {
+                pattern: "^[0-9]{5}$"
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          invalid: {
+            systemMessage: "I'm sorry, ",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          },
+          extracted: {
+            systemMessage: "Great,",
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't understand that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldEmpty: {
+        systemMessage: [
+          "Do you own this residence?"
+        ],
+        userValidators: {
+          validators: [
+            {
+              name: "llmBoolean",
+              params: {}
+            }
+          ]
+        }
+      },
+      onFieldempty: {
+        userValidators: {
+          extracted: {
+            systemMessage: "Thanks!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't catch that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      }
+    }
+  },
+};
+
+
+const birth_dateDialog = {
+  birth_date: {
+    contextFieldName: "birth_date",
+    contextModelName: "drivers",
+    initialCommandName: "isFieldPresent",
+    commands: {
+      isFieldPresent: {
+        systemValidators: {
+          validators: [
+            {
+              name: "fieldPresent",
+              params: {
+                fieldName: "birth_date"
+              }
+            }
+          ],
+          valid: {
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          invalid: {
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldPresent: {
+        systemMessage: "Is your birth date <birth_date>?",
+        userValidators: {
+          validators: [
+            {
+              name: "llmBoolean"
+            },
+            {
+              name: "pattern",
+              params: {
+                pattern: "^[0-9]{5}$"
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          invalid: {
+            systemMessage: "I'm sorry, ",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          },
+          extracted: {
+            systemMessage: "Great,",
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't understand that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldEmpty: {
+        systemMessage: [
+          "Please say your birthdate.  For example, March 17th, 1992"
+        ],
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride: "We asked the user for the birth date.  Please extract their birthdate.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2000.  Although, they may provide the number for the month as well, e.g., 6 11 1971, would be june 11th 1971.  Please return the extracted data in the format Month, day, year:  June 11, 1971."
+              }
+            }
+          ]
+        }
+      },
+      onFieldempty: {
+        userValidators: {
+          extracted: {
+            systemMessage: "Thanks!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't catch that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      }
+    }
+  },
+};
+
+const marital_statusDialog = {
+  marital_status: {
+    contextFieldName: "marital_status",
+    contextModelName: "drivers",
+    initialCommandName: "isFieldPresent",
+    commands: {
+      isFieldPresent: {
+        systemValidators: {
+          validators: [
+            {
+              name: "fieldPresent",
+              params: {
+                fieldName: "marital_status"
+              }
+            }
+          ],
+          valid: {
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          invalid: {
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldPresent: {
+        systemMessage: "You are currently <marital_status>.  Is that correct?",
+        userValidators: {
+          validators: [
+            {
+              name: "llmBoolean"
+            },
+            {
+              name: "pattern",
+              params: {
+                pattern: "^[0-9]{5}$"
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          invalid: {
+            systemMessage: "I'm sorry, ",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          },
+          extracted: {
+            systemMessage: "Great,",
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't understand that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldEmpty: {
+        systemMessage: [
+          "Are you single, married or divorced?"
+        ],
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride: "We asked the user about their marital status, "Are you single, married or divorced?"  Please extract their answer to the question as one of these three options."
+              }
+            }
+          ]
+        }
+      },
+      onFieldempty: {
+        userValidators: {
+          extracted: {
+            systemMessage: "Thanks!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't catch that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      }
+    }
+  },
+};
 
 module.exports = {
   first_nameDialog,
@@ -632,4 +937,6 @@ module.exports = {
   stateDialog,
   cityDialog,
   addressDialog,
-};
+  home_ownershipDialog,
+  birth_dateDialog,
+  marital_statusDialog};

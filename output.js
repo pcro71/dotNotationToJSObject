@@ -1,7 +1,7 @@
-const addressDialog = {
-  address: {
-    contextFieldName: "address",
-    contextModelName: "leads",
+const marital_statusDialog = {
+  marital_status: {
+    contextFieldName: "marital_status",
+    contextModelName: "drivers",
     initialCommandName: "isFieldPresent",
     commands: {
       isFieldPresent: {
@@ -10,7 +10,7 @@ const addressDialog = {
             {
               name: "fieldPresent",
               params: {
-                fieldName: "address"
+                fieldName: "marital_status"
               }
             }
           ],
@@ -27,7 +27,7 @@ const addressDialog = {
         }
       },
       onFieldPresent: {
-        systemMessage: "Is your address <address>?",
+        systemMessage: "You are currently <marital_status>.  Is that correct?",
         userValidators: {
           validators: [
             {
@@ -68,14 +68,14 @@ const addressDialog = {
       },
       onFieldEmpty: {
         systemMessage: [
-          "What is your street address?"
+          "Are you single, married or divorced?"
         ],
         userValidators: {
           validators: [
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "Please extract the street address that they user says.  Street address typically begin with a number, followed by a name or names and the a street type, e.g., road, street, way, circle, avenue, etc. For example, 1244 telegraph avenue."
+                instructionsOverride: "We asked the user about their marital status, "Are you single, married or divorced?"  Please extract their answer to the question as one of these three options."
               }
             }
           ]
@@ -99,7 +99,6 @@ const addressDialog = {
       }
     }
   },
-  "": ""
 };
 
-export default {addressDialog};
+export default {marital_statusDialog};
