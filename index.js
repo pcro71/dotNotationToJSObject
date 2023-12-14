@@ -5,6 +5,7 @@ const Papa = require("papaparse");
 // Read the CSV file
 const fileContent = fs.readFileSync("input.csv", "utf8");
 
+// Parse CSV
 function parseCSV(fileContent) {
   return new Promise((resolve, reject) => {
     Papa.parse(fileContent, {
@@ -20,9 +21,9 @@ function parseCSV(fileContent) {
   });
 }
 
+// Create nested object from string
 function createNestedObjectFromString(path, value, obj) {
   const keys = path.split(".");
-
   keys.reduce((acc, key, index) => {
     if (index === keys.length - 1) {
       if (key.endsWith("[]")) {
@@ -43,6 +44,7 @@ function createNestedObjectFromString(path, value, obj) {
   }, obj);
 }
 
+// Process CSV
 async function processCSV(fileContent) {
   let inputs;
   try {
@@ -62,11 +64,9 @@ async function processCSV(fileContent) {
       record.forEach(cell => {
         const [path, ...rest] = cell.split(":");
         const value = rest.join(":").trim().replace(/"$/, "").replace(/^"/, "");
-
         createNestedObjectFromString(path, value, dialogObject);
       });
 
-      // Assuming the first cell of each row contains the dialog name
       const dialogName = Object.keys(dialogObject)[0] + "Dialog";
       allDialogs[dialogName] = dialogObject;
     });
@@ -75,12 +75,12 @@ async function processCSV(fileContent) {
     return;
   }
 
+  // Construct jsContent
   let jsContent = '';
   Object.keys(allDialogs).forEach(dialogName => {
     jsContent += `const ${dialogName} = ${util.inspect(allDialogs[dialogName], { depth: null, compact: false })};\n\n`;
   });
   jsContent += `export default {${Object.keys(allDialogs).join(', ')}};`;
-  
 
   // Write to output.js file
   fs.writeFileSync("output.js", jsContent, "utf8");

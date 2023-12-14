@@ -313,10 +313,323 @@ const zipDialog = {
   }
 };
 
+const stateDialog = {
+  state: {
+    contextFieldName: "state",
+    contextModelName: "leads",
+    initialCommandName: "isFieldPresent",
+    commands: {
+      isFieldPresent: {
+        systemValidators: {
+          validators: [
+            {
+              name: "fieldPresent",
+              params: {
+                fieldName: "state"
+              }
+            }
+          ],
+          valid: {
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          invalid: {
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldPresent: {
+        systemMessage: "Do you live in <state>?",
+        userValidators: {
+          validators: [
+            {
+              name: "llmBoolean"
+            },
+            {
+              name: "pattern",
+              params: {
+                pattern: "^[0-9]{5}$"
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          invalid: {
+            systemMessage: "I'm sorry, ",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          },
+          extracted: {
+            systemMessage: "Great,",
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't understand that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldEmpty: {
+        systemMessage: [
+          "Which state do you live in?"
+        ],
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride: "The user has been instructed to provide the state in the United States that they live in.  Please extract the state and return the two digit abbreviation for that US state, e.g., CA when the consumer says California.  For District of Columbia, please return DC."
+              }
+            }
+          ]
+        }
+      },
+      onFieldempty: {
+        userValidators: {
+          extracted: {
+            systemMessage: "Thanks!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't catch that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      }
+    }
+  },
+};
+
+const cityDialog = {
+  city: {
+    contextFieldName: "city",
+    contextModelName: "leads",
+    initialCommandName: "isFieldPresent",
+    commands: {
+      isFieldPresent: {
+        systemValidators: {
+          validators: [
+            {
+              name: "fieldPresent",
+              params: {
+                fieldName: "city"
+              }
+            }
+          ],
+          valid: {
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          invalid: {
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldPresent: {
+        systemMessage: "Do you live in <city>?",
+        userValidators: {
+          validators: [
+            {
+              name: "llmBoolean"
+            },
+            {
+              name: "pattern",
+              params: {
+                pattern: "^[0-9]{5}$"
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          invalid: {
+            systemMessage: "I'm sorry, ",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          },
+          extracted: {
+            systemMessage: "Great,",
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't understand that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldEmpty: {
+        systemMessage: [
+          "Please say and spell out the city that you live in.  For Example, Des Moines D E S M O I N E S."
+        ],
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride: "Please extract the U.S. city that they user says.  They have been instructed to pronounce the city and then spell out the city. Please use these two pieces of data (if available) to correctly extract the city."
+              }
+            }
+          ]
+        }
+      },
+      onFieldempty: {
+        userValidators: {
+          extracted: {
+            systemMessage: "Thanks!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't catch that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      }
+    }
+  },
+};
+
+const addressDialog = {
+  address: {
+    contextFieldName: "address",
+    contextModelName: "leads",
+    initialCommandName: "isFieldPresent",
+    commands: {
+      isFieldPresent: {
+        systemValidators: {
+          validators: [
+            {
+              name: "fieldPresent",
+              params: {
+                fieldName: "address"
+              }
+            }
+          ],
+          valid: {
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          invalid: {
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldPresent: {
+        systemMessage: "Is your address <address>?",
+        userValidators: {
+          validators: [
+            {
+              name: "llmBoolean"
+            },
+            {
+              name: "pattern",
+              params: {
+                pattern: "^[0-9]{5}$"
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          invalid: {
+            systemMessage: "I'm sorry, ",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          },
+          extracted: {
+            systemMessage: "Great,",
+            commands: [
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't understand that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      },
+      onFieldEmpty: {
+        systemMessage: [
+          "What is your street address?"
+        ],
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride: "Please extract the street address that they user says.  Street address typically begin with a number, followed by a name or names and the a street type, e.g., road, street, way, circle, avenue, etc. For example, 1244 telegraph avenue."
+              }
+            }
+          ]
+        }
+      },
+      onFieldempty: {
+        userValidators: {
+          extracted: {
+            systemMessage: "Thanks!",
+            commands: [
+              "topicComplete", "nextTopic"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't catch that.",
+            commands: [
+              "nextCommand:onFieldEmpty"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "": ""
+};
+
+export default {addressDialog};
+
 module.exports = {
-  addressDialog,
-  cityDialog,
+  first_nameDialog,
+  last_nameDialog,
   zipDialog,
   stateDialog,
-  first_nameDialog
+  cityDialog,
+  addressDialog,
 };

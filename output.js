@@ -1,84 +1,81 @@
-const last_nameDialog = {
-  last_name: {
-    contextFieldName: 'last_name',
-    contextModelName: 'leads',
-    initialCommandName: 'isFieldPresent',
+const addressDialog = {
+  address: {
+    contextFieldName: "address",
+    contextModelName: "leads",
+    initialCommandName: "isFieldPresent",
     commands: {
       isFieldPresent: {
         systemValidators: {
           validators: [
             {
-              name: 'fieldPresent',
+              name: "fieldPresent",
               params: {
-                fieldName: 'last_name'
+                fieldName: "address"
               }
             }
           ],
           valid: {
             commands: [
-              'nextCommand:onFieldPresent'
+              "nextCommand:onFieldPresent"
             ]
           },
           invalid: {
             commands: [
-              'nextCommand:onFieldEmpty'
+              "nextCommand:onFieldEmpty"
             ]
           }
         }
       },
       onFieldPresent: {
-        systemMessage: 'We have your name as <last_name>. Spelled <last_name: spelled out>.  Is that right?',
+        systemMessage: "Is your address <address>?",
         userValidators: {
           validators: [
             {
-              name: 'llmBoolean',
-              params: {
-                appendAffirmative: ", that's me."
-              }
+              name: "llmBoolean"
             },
             {
-              name: 'pattern',
+              name: "pattern",
               params: {
-                pattern: '^[0-9]{5}$'
+                pattern: "^[0-9]{5}$"
               }
             }
           ],
           valid: {
-            systemMessage: 'Thank you for confirming!',
+            systemMessage: "Thank you for confirming!",
             commands: [
-              'topicComplete", "nextTopic'
+              "topicComplete", "nextTopic"
             ]
           },
           invalid: {
             systemMessage: "I'm sorry, ",
             commands: [
-              'nextCommand:onFieldEmpty'
+              "nextCommand:onFieldEmpty"
             ]
           },
           extracted: {
-            systemMessage: 'Great,',
+            systemMessage: "Great,",
             commands: [
-              'nextCommand:onFieldPresent'
+              "nextCommand:onFieldPresent"
             ]
           },
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: [
-              'nextCommand:onFieldEmpty'
+              "nextCommand:onFieldEmpty"
             ]
           }
         }
       },
       onFieldEmpty: {
         systemMessage: [
-          'Please say and spell out your legal last name.  For example, Smith S M I T H.'
+          "What is your street address?"
         ],
         userValidators: {
           validators: [
             {
-              name: 'llmExtract',
+              name: "llmExtract",
               params: {
-                instructionsOverride: "Attempt to extract the user's last name.  They have been instructed to pronounce their last name and then spell out their last name. Please use these two pieces of data (if available) to correctly extract their last name."
+                instructionsOverride: "Please extract the street address that they user says.  Street address typically begin with a number, followed by a name or names and the a street type, e.g., road, street, way, circle, avenue, etc. For example, 1244 telegraph avenue."
               }
             }
           ]
@@ -87,22 +84,22 @@ const last_nameDialog = {
       onFieldempty: {
         userValidators: {
           extracted: {
-            systemMessage: 'Thanks!',
+            systemMessage: "Thanks!",
             commands: [
-              'topicComplete", "nextTopic'
+              "topicComplete", "nextTopic"
             ]
           },
           unknown: {
             systemMessage: "I'm sorry, I didn't catch that.",
             commands: [
-              'nextCommand:onFieldEmpty'
+              "nextCommand:onFieldEmpty"
             ]
           }
         }
       }
     }
   },
-  '': ''
+  "": ""
 };
 
-export default {last_nameDialog};
+export default {addressDialog};
