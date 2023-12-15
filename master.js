@@ -69,7 +69,7 @@ function insertIntoMasterDialog() {
     let insertionPointContent = masterDialogContent.indexOf('module.exports = {');
     if (insertionPointContent === -1) {
       console.log('Insertion point not found in masterDialog.js, creating new module.exports structure.');
-      masterDialogContent = 'module.exports = {\n\n};\n' + masterDialogContent;
+      masterDialogContent = 'module.exports = {\n};\n' + masterDialogContent;
       insertionPointContent = masterDialogContent.indexOf('module.exports = {');
     }
 
@@ -83,7 +83,7 @@ function insertIntoMasterDialog() {
     
     // Check if there are existing entries in module.exports
     const existingEntries = masterDialogContent.substring(masterDialogContent.indexOf('{') + 1, insertionPointExportValue).trim();
-    const newEntry = existingEntries ? `, ${exportValue}` : exportValue;
+    const newEntry = existingEntries ? `${exportValue},\n` : exportValue;
     
     masterDialogContent = masterDialogContent.slice(0, insertionPointExportValue) + newEntry + masterDialogContent.slice(insertionPointExportValue);
     fs.writeFileSync(masterDialogPath, masterDialogContent, 'utf8');

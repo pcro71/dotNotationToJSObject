@@ -67,7 +67,7 @@ async function processCSV(fileContent) {
         createNestedObjectFromString(path, value, dialogObject);
       });
 
-      const dialogName = Object.keys(dialogObject)[0] + "Dialog";
+      const dialogName = Object.keys(dialogObject)[0].replace(/_([a-zA-Z0-9#])/g, function (g) { return g[1].toUpperCase(); }) + "Dialog";
       allDialogs[dialogName] = dialogObject;
     });
   } catch (error) {

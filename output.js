@@ -1,6 +1,6 @@
-const modelDialog = {
-  model: {
-    contextFieldName: "model",
+const ownershipDialog = {
+  ownership: {
+    contextFieldName: "ownership",
     contextModelName: "vehicles",
     initialCommandName: "isFieldPresent",
     commands: {
@@ -10,7 +10,7 @@ const modelDialog = {
             {
               name: "fieldPresent",
               params: {
-                fieldName: "model"
+                fieldName: "ownership"
               }
             }
           ],
@@ -27,16 +27,11 @@ const modelDialog = {
         }
       },
       onFieldPresent: {
+        systemMessage: "It looks like you <vehicle_ownership> your vehicle.  Correct?",
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "pattern",
-              params: {
-                pattern: "^[0-9]{5}$"
-              }
             }
           ],
           valid: {
@@ -67,16 +62,17 @@ const modelDialog = {
       },
       onFieldEmpty: {
         systemMessage: [
-          "[if no VIN] What is the model of your vehicle?"
+          "Do you own this vehicle outright, lease the vehicle or are you making payments to a finance company for this vehicle?"
         ],
         userValidators: {
           validators: [
             {
               name: "llmExtract",
               params: {
-                instructionsOverride: "We asked the user, "What is the model of your vehicle."  The model of a vehicle refers to a specific version or design of a car made by a manufacturer. Each model has its own unique name or number (and sometimes both) which differentiates it from other models produced by the same manufacturer. For example, Toyota, produces the models Camry, Corolla, RAV4, and Prius. Please extract the model."
+                instructionsOverride: "We asked the user: Do you own this vehicle outright, lease the vehicle or are you making payments to a finance company for this vehicle? Please extract their answer and return, own, lease or finance."
               }
-            }
+            },
+            ""
           ]
         }
       },
@@ -97,7 +93,7 @@ const modelDialog = {
         }
       }
     }
-  },
+  }
 };
 
-export default {modelDialog};
+export default {ownershipDialog};
