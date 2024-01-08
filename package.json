@@ -15,5 +15,8 @@
     "nodemon": "^3.0.2",
     "papaparse": "^5.4.1",
     "safe-eval": "^0.4.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.1"
   }
 }

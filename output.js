@@ -1,6 +1,6 @@
-const ownershipDialog = {
-  ownership: {
-    contextFieldName: "ownership",
+const primaryPurposeDialog = {
+  primary_purpose: {
+    contextFieldName: "primary_purpose",
     contextModelName: "vehicles",
     initialCommandName: "isFieldPresent",
     commands: {
@@ -10,7 +10,7 @@ const ownershipDialog = {
             {
               name: "fieldPresent",
               params: {
-                fieldName: "ownership"
+                fieldName: "primary_purpose"
               }
             }
           ],
@@ -27,64 +27,60 @@ const ownershipDialog = {
         }
       },
       onFieldPresent: {
-        systemMessage: "It looks like you <vehicle_ownership> your vehicle.  Correct?",
+        systemMessage: "You do, do not drive your vehicles for business or commercial purposes, not including driving to and from work.  Correct?",
         userValidators: {
           validators: [
             {
-              name: "llmBoolean"
+              name: "llmBoolean",
+              params: {
+                appendAffirmative: ", that's me."
+              }
             }
           ],
           valid: {
             systemMessage: "Thank you for confirming!",
             commands: [
-              "topicComplete", "nextTopic"
+              "nextTopic"
             ]
           },
           invalid: {
             systemMessage: "I'm sorry, ",
             commands: [
-              "nextCommand:onFieldEmpty"
+              ""
             ]
           },
           extracted: {
-            systemMessage: "Great,",
+            systemMessage: "",
             commands: [
-              "nextCommand:onFieldPresent"
+              ""
             ]
           },
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: [
-              "nextCommand:onFieldEmpty"
+              "nextCommand:onFieldPresent"
             ]
           }
         }
       },
       onFieldEmpty: {
         systemMessage: [
-          "Do you own this vehicle outright, lease the vehicle or are you making payments to a finance company for this vehicle?"
+          "Aside from driving to and from work, do you use your vehicle for business purposes?"
         ],
         userValidators: {
           validators: [
             {
-              name: "llmExtract",
-              params: {
-                instructionsOverride: "We asked the user: Do you own this vehicle outright, lease the vehicle or are you making payments to a finance company for this vehicle? Please extract their answer and return, own, lease or finance."
-              }
+              name: "llmBoolean"
             },
             ""
-          ]
-        }
-      },
-      onFieldempty: {
-        userValidators: {
+          ],
           extracted: {
             systemMessage: "Thanks!",
             commands: [
-              "topicComplete", "nextTopic"
+              "nextCommand:onFieldPresent"
             ]
           },
-          unknown: {
+          invalid: {
             systemMessage: "I'm sorry, I didn't catch that.",
             commands: [
               "nextCommand:onFieldEmpty"
@@ -96,4 +92,4 @@ const ownershipDialog = {
   }
 };
 
-export default {ownershipDialog};
+export default {primaryPurposeDialog};
