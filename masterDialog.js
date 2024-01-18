@@ -3,43 +3,43 @@ const fullAddressConfirmationDialog = {
     contextFieldName: "null",
     contextModelName: "leads",
     initialCommandName: "allFieldsPresent",
-    commands: {
-      allFieldsPresent: {
-        systemValidators: {
-          validators: [
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "address"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "city"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "state"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "zip"
-              }
+    commandsallFieldsPresent: {
+      systemValidators: {
+        validators: [
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "address"
             }
-          ],
-          valid: {
-            commands: ["nextCommand:confirmAllFields"]
           },
-          invalid: {
-            commands: ["addTopics-leads:address,city,state,zip", "nextTopic"]
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "city"
+            }
+          },
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "state"
+            }
+          },
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "zip"
+            }
           }
+        ],
+        valid: {
+          commands: ["nextCommand:confirmAllFields"]
+        },
+        invalid: {
+          commands: ["addTopics-leads:address,city,state,zip", "nextTopic"]
         }
-      },
+      }
+    },
+    commands: {
       confirmAllFields: {
         systemMessage:
           "We have your address as <address>, <city>, <state>, <zip:spelledOut>. Is this correct?",
@@ -54,9 +54,12 @@ const fullAddressConfirmationDialog = {
             commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I didn't get that.  Is your address <address>, <city>, <state>, <zip:spelledOut>?",
+            systemMessage: "I didn't get that",
             commands: ["addTopics-leads:address,city,state,zip", "nextTopic"]
+          },
+          unknown: {
+            systemMessage: "I didn't get that",
+            commands: ["nextCommand:onFieldPresent"]
           }
         }
       }
@@ -69,37 +72,37 @@ const fullVehicleConfirmationDialog = {
     contextFieldName: "null",
     contextModelName: "vehicles",
     initialCommandName: "allFieldsPresent",
-    commands: {
-      allFieldsPresent: {
-        systemValidators: {
-          validators: [
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "year"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "make"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "model"
-              }
+    commandsallFieldsPresent: {
+      systemValidators: {
+        validators: [
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "year"
             }
-          ],
-          valid: {
-            commands: ["nextCommand:confirmAllFields"]
           },
-          invalid: {
-            commands: ["addTopics-vehicles:year,make,model", "nextTopic"]
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "make"
+            }
+          },
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "model"
+            }
           }
+        ],
+        valid: {
+          commands: ["nextCommand:confirmAllFields"]
+        },
+        invalid: {
+          commands: ["addTopics-vehicles:year,make,model", "nextTopic"]
         }
-      },
+      }
+    },
+    commands: {
       confirmAllFields: {
         systemMessage:
           "We have your vehicle as a <year:dateYear> <make> <model>. Is this all correct?",
@@ -114,9 +117,12 @@ const fullVehicleConfirmationDialog = {
             commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I missed that.  Is your vehicle a <year:dateYear> <make> <model>?",
+            systemMessage: "I missed that.",
             commands: ["addTopics-vehicles:year,make,model", "nextTopic"]
+          },
+          unknown: {
+            systemMessage: "I missed that.",
+            commands: ["nextCommand:onFieldPresent"]
           }
         }
       }
@@ -129,31 +135,31 @@ const fullNameConfirmationDialog = {
     contextFieldName: "null",
     contextModelName: "leads",
     initialCommandName: "allFieldsPresent",
-    commands: {
-      allFieldsPresent: {
-        systemValidators: {
-          validators: [
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "first_name"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "last_name"
-              }
+    commandsallFieldsPresent: {
+      systemValidators: {
+        validators: [
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "first_name"
             }
-          ],
-          valid: {
-            commands: ["nextCommand:confirmAllFields"]
           },
-          invalid: {
-            commands: ["addTopics-leads:first_name,last_name", "nextTopic"]
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "last_name"
+            }
           }
+        ],
+        valid: {
+          commands: ["nextCommand:confirmAllFields"]
+        },
+        invalid: {
+          commands: ["addTopics-leads:first_name,last_name", "nextTopic"]
         }
-      },
+      }
+    },
+    commands: {
       confirmAllFields: {
         systemMessage:
           "We have your legal name as <first_name> <last_name>. Is that correct?",
@@ -168,9 +174,12 @@ const fullNameConfirmationDialog = {
             commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't get that. Is your full name legal <first_name> <last_name>?",
+            systemMessage: "I'm sorry, I didn't get that.",
             commands: ["addTopics-first_name,last_name", "nextTopic"]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't get that.",
+            commands: ["nextCommand:onFieldPresent"]
           }
         }
       }
@@ -183,31 +192,31 @@ const cityStateConfirmationDialog = {
     contextFieldName: "null",
     contextModelName: "leads",
     initialCommandName: "allFieldsPresent",
-    commands: {
-      allFieldsPresent: {
-        systemValidators: {
-          validators: [
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "city"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "state"
-              }
+    commandsallFieldsPresent: {
+      systemValidators: {
+        validators: [
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "city"
             }
-          ],
-          valid: {
-            commands: ["nextCommand:confirmAllFields"]
           },
-          invalid: {
-            commands: ["addTopics-leads:city,state", "nextTopic"]
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "state"
+            }
           }
+        ],
+        valid: {
+          commands: ["nextCommand:confirmAllFields"]
+        },
+        invalid: {
+          commands: ["addTopics-leads:city,state", "nextTopic"]
         }
-      },
+      }
+    },
+    commands: {
       confirmAllFields: {
         systemMessage: "Do you live in <city> <state>. Is that right?",
         userValidators: {
@@ -221,8 +230,12 @@ const cityStateConfirmationDialog = {
             commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I missed that.  Do you live in <city> <state>?",
+            systemMessage: "I missed that.",
             commands: ["addTopics-city,state", "nextTopic"]
+          },
+          unknown: {
+            systemMessage: "I missed that.",
+            commands: ["nextCommand:onFieldPresent"]
           }
         }
       }
@@ -235,34 +248,34 @@ const driversLicense_StateConfirmationDialog = {
     contextFieldName: "null",
     contextModelName: "drivers",
     initialCommandName: "allFieldsPresent",
-    commands: {
-      allFieldsPresent: {
-        systemValidators: {
-          validators: [
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "license_state"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "license_number"
-              }
+    commandsallFieldsPresent: {
+      systemValidators: {
+        validators: [
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "license_state"
             }
-          ],
-          valid: {
-            commands: ["nextCommand:confirmAllFields"]
           },
-          invalid: {
-            commands: [
-              "addTopics-leads: license_state, license_number",
-              "nextTopic"
-            ]
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "license_number"
+            }
           }
+        ],
+        valid: {
+          commands: ["nextCommand:confirmAllFields"]
+        },
+        invalid: {
+          commands: [
+            "addTopics-leads: license_state, license_number",
+            "nextTopic"
+          ]
         }
-      },
+      }
+    },
+    commands: {
       confirmAllFields: {
         systemMessage:
           "We show that you have a <license_state> driver license with the number: <license_number: spelled out>.  Correct?",
@@ -277,9 +290,12 @@ const driversLicense_StateConfirmationDialog = {
             commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I didn't get that. Do you have a <license_state> driver license with the number: <license_number: spelled out>. ",
+            systemMessage: "I didn't get that",
             commands: ["addTopics-city,state", "nextTopic"]
+          },
+          unknown: {
+            systemMessage: "I didn't get that",
+            commands: ["nextCommand:onFieldPresent"]
           }
         }
       }
@@ -292,46 +308,46 @@ const excludedDriverNameLicenseConfirmationDialog = {
     contextFieldName: "null",
     contextModelName: "drivers",
     initialCommandName: "allFieldsPresent",
-    commands: {
-      allFieldsPresent: {
-        systemValidators: {
-          validators: [
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "first_name"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "last_name"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "license_state"
-              }
-            },
-            {
-              name: "fieldPresent",
-              params: {
-                fieldName: "license_number"
-              }
+    commandsallFieldsPresent: {
+      systemValidators: {
+        validators: [
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "first_name"
             }
-          ],
-          valid: {
-            commands: ["nextCommand:confirmAllFields"]
           },
-          invalid: {
-            commands: [
-              "addTopics-leads:first_name, last_name, license_state, license_number",
-              "nextTopic"
-            ]
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "last_name"
+            }
+          },
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "license_state"
+            }
+          },
+          {
+            name: "fieldPresent",
+            params: {
+              fieldName: "license_number"
+            }
           }
+        ],
+        valid: {
+          commands: ["nextCommand:confirmAllFields"]
+        },
+        invalid: {
+          commands: [
+            "addTopics-leads:first_name, last_name, license_state, license_number",
+            "nextTopic"
+          ]
         }
-      },
+      }
+    },
+    commands: {
       confirmAllFields: {
         systemMessage:
           "We show the excluded driver <first_name> <last_name> as having a <license_state> drivers license with the number: <license_number: spelled out>.  Correct?",
@@ -346,9 +362,12 @@ const excludedDriverNameLicenseConfirmationDialog = {
             commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I didn't get that. Does the excluded driver have a first name of <first_name> and a last name of <last_name>, and have a license issued by <license_state> and driver license with the number: <license_number: spelled out>.",
+            systemMessage: "I missed that.",
             commands: ["addTopics-city,state", "nextTopic"]
+          },
+          unknown: {
+            systemMessage: "I missed that.",
+            commands: ["nextCommand:onFieldPresent"]
           }
         }
       }
@@ -390,33 +409,43 @@ const firstNameDialog = {
               params: {
                 appendAffirmative: ", that's me."
               }
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "Attempt to extract the user's first name.  They have been instructed to pronounce their first name and then spell out their first name. Please use these two pieces of data (if available) to correctly extract their first name and return it in the format: extracted: name-here."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Please slowly say and spell out your first name again.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. Is your first name as <first_name>? Spelled <first_name: spelled out>",
+            systemMessage: "I didn't get that",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "Attempt to extract the user's first name.  They have been instructed to pronounce their first name and then spell out their first name. Please use these two pieces of data (if available) to correctly extract their first name and return it in the format: extracted: name-here."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -458,33 +487,43 @@ const lastNameDialog = {
               params: {
                 appendAffirmative: ", that's me."
               }
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "Attempt to extract the user's last name.  They have been instructed to pronounce their last name and then spell out their last name. Please use these two pieces of data (if available) to correctly extract their last name and return it in the format: extracted: name-here."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Please slowly say your last name again.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I didn't catch that.  Is your last name <last_name>. Spelled <last_name: spelled out>?",
+            systemMessage: "I missed that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "Attempt to extract the user's last name.  They have been instructed to pronounce their last name and then spell out their last name. Please use these two pieces of data (if available) to correctly extract their last name and return it in the format: extracted: name-here."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -522,7 +561,28 @@ const zipDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            commands: ["nextCommand:onFieldEmpty"]
+          },
+          extracted: {
+            systemMessage: "Great. ",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't get that.",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmExtract",
               params: {
@@ -539,20 +599,11 @@ const zipDialog = {
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. What is your five digit zip code?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
-            commands: ["nextCommand:onFieldPresent"]
-          },
-          unknown: {
-            systemMessage: `I'm sorry, I didn't understand that. "Is your zip code <zip: spelled out>?`,
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -590,32 +641,43 @@ const stateDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "The user has been instructed to provide the state in the United States that they live in.  Please extract the state and return the two digit abbreviation for that US state, e.g., CA when the consumer says California.  For District of Columbia, please return DC.  Please return the State abbreviation in the format: extracted: state-abbreviation-here.  Here is the list of US states with their abbreviation:  Alabama: AL, Alaska: AK, Arizona: AZ, Arkansas: AR, California: CA, Colorado: CO, Connecticut: CT, Delaware: DE, District of Columbia: DC, Florida: FL, Georgia: GA, Hawaii: HI, Idaho: ID, Illinois: IL, Indiana: IN, Iowa: IA, Kansas: KS, Kentucky: KY, Louisiana: LA, Maine: ME, Maryland: MD, Massachusetts: MA, Michigan: MI, Minnesota: MN, Mississippi: MS, Missouri: MO, Montana: MT, Nebraska: NE, Nevada: NV, New Hampshire: NH, New Jersey: NJ, New Mexico: NM, New York: NY, North Carolina: NC, North Dakota: ND, Ohio: OH, Oklahoma: OK, Oregon: OR, Pennsylvania: PA, Rhode Island: RI, South Carolina: SC, South Dakota: SD, Tennessee: TN, Texas: TX, Utah: UT, Vermont: VT, Virginia: VA, Washington: WA, West Virginia: WV, Wisconsin: WI, Wyoming: WY."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Which state do you live in?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage: `I'm sorry, I didn't understand that. "Do you live in <state>?`,
+            systemMessage: "I didn't get that",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "The user has been instructed to provide the state in the United States that they live in.  Please extract the state and return the two digit abbreviation for that US state, e.g., CA when the consumer says California.  For District of Columbia, please return DC.  Please return the State abbreviation in the format: extracted: state-abbreviation-here.  Here is the list of US states with their abbreviation:  Alabama: AL, Alaska: AK, Arizona: AZ, Arkansas: AR, California: CA, Colorado: CO, Connecticut: CT, Delaware: DE, District of Columbia: DC, Florida: FL, Georgia: GA, Hawaii: HI, Idaho: ID, Illinois: IL, Indiana: IN, Iowa: IA, Kansas: KS, Kentucky: KY, Louisiana: LA, Maine: ME, Maryland: MD, Massachusetts: MA, Michigan: MI, Minnesota: MN, Mississippi: MS, Missouri: MO, Montana: MT, Nebraska: NE, Nevada: NV, New Hampshire: NH, New Jersey: NJ, New Mexico: NM, New York: NY, North Carolina: NC, North Dakota: ND, Ohio: OH, Oklahoma: OK, Oregon: OR, Pennsylvania: PA, Rhode Island: RI, South Carolina: SC, South Dakota: SD, Tennessee: TN, Texas: TX, Utah: UT, Vermont: VT, Virginia: VA, Washington: WA, West Virginia: WV, Wisconsin: WI, Wyoming: WY."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -654,33 +716,43 @@ const cityDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "Please extract the U.S. city that they user says.  They have been instructed to pronounce the city and then spell out the city. Please use these two pieces of data (if available) to correctly extract the city.  Please return the format: extracted: city-here."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Which city do you live in?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. Do you live in <city>",
+            systemMessage: "I missed that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "Please extract the U.S. city that they user says.  They have been instructed to pronounce the city and then spell out the city. Please use these two pieces of data (if available) to correctly extract the city.  Please return the format: extracted: city-here."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -718,33 +790,43 @@ const addressDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "Please extract the street address that they user says.  Street address typically begin with a number, followed by a name or names and the a street type, e.g., road, street, way, circle, avenue, etc. For example, 1244 telegraph avenue.   Please return the format: extracted: address-here."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. What is your street address?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. Is your address <address>?",
+            systemMessage: "I'm sorry, I didn't get that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "Please extract the street address that they user says.  Street address typically begin with a number, followed by a name or names and the a street type, e.g., road, street, way, circle, avenue, etc. For example, 1244 telegraph avenue.   Please return the format: extracted: address-here."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -776,33 +858,41 @@ const addressSixMonthsDialog = {
           }
         }
       },
-      hasAddressSixMonths: {
+      onFieldPresent: {
         systemMessage:
           "Have you lived at this address for the last six months?",
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            commands: ["nextCommand:onFieldEmpty"]
+          },
+          unknown: {
+            systemMessage: "I didn't get that",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -842,33 +932,43 @@ const homeTypeDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: Would you describe your residence as a single family home, townhouse, condo or mobile home?  Please extract which option they chose and return the format: extracted: townhouse."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Is your current residence as a single family home, townhouse, condo or mobile home?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. Is your current residence a <home_type>.",
+            systemMessage: "I missed that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: Would you describe your residence as a single family home, townhouse, condo or mobile home?  Please extract which option they chose and return the format: extracted: townhouse."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -900,33 +1000,51 @@ const homeOwnershipDialog = {
           }
         }
       },
-      hasHomeOwnership: {
+      onFieldPresent: {
         systemMessage: "Do you own your residence?",
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            systemMessage: "I corrected that for you.",
+            commands: [
+              "setField-leads, home_ownership:boolInvert",
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't get that.",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: [
+              "setField-leads, home_ownership:boolTrue",
+              "nextCommand:onFieldPresent"
+            ]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "Got it.",
+            commands: [
+              "setField-leads, home_ownership:boolFalse",
+              "nextCommand:onFieldPresent"
+            ]
           }
         }
       }
@@ -965,33 +1083,43 @@ const birthDateDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user for their birth date.  Please extract their birthdate.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2000.  Although, they may provide the number for the month as well, e.g., 6 11 1971, would be june 11th 1971.  Please return the extracted data in the format: extracted: Month, day, year .e.g.,  June 11, 1971."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. What is your birth date?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. Is your birth date <birth_date>?",
+            systemMessage: "I'm sorry, I didn't get that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user for their birth date.  Please extract their birthdate.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2000.  Although, they may provide the number for the month as well, e.g., 6 11 1971, would be june 11th 1971.  Please return the extracted data in the format: extracted: Month, day, year .e.g.,  June 11, 1971."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -1029,33 +1157,43 @@ const maritalStatusDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user about their marital status: Are you single, married or divorced?  Please extract their answer to the question as one of these three options in the format:  extracted: data-here."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Are you single, married or divorced?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. You are currently <marital_status>. Correct?",
+            systemMessage: "I didn't get that",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user about their marital status: Are you single, married or divorced?  Please extract their answer to the question as one of these three options in the format:  extracted: data-here."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -1094,7 +1232,24 @@ const phoneDialog = {
           validators: [
             {
               name: "llmBoolean"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            commands: ["nextCommand:onFieldEmpty"]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't get that.",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmExtract",
               params: {
@@ -1111,21 +1266,11 @@ const phoneDialog = {
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Is this number that you are calling from you primary phone number?",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. This phone number is your primary phone number. Correct?",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -1164,7 +1309,28 @@ const emailDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            commands: ["nextCommand:onFieldEmpty"]
+          },
+          extracted: {
+            systemMessage: "Great. ",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          unknown: {
+            systemMessage: "I didn't get that",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmExtract",
               params: {
@@ -1181,21 +1347,11 @@ const emailDialog = {
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Please slowly say your email address, spelling out the part before the at sign.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
-            commands: ["nextCommand:onFieldPresent"]
-          },
-          unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that.  Your email address as <email: spelled out>.  Correct?",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -1220,41 +1376,59 @@ const militaryAffiliationDialog = {
             }
           ],
           valid: {
-            commands: ["nextCommand:hasMilitary"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            commands: ["nextCommand:noMilitary"]
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       },
-      hasMilitaryAffiliation: {
+      onFieldPresent: {
         systemMessage:
           "Are you currently serving or have you ever served in the US Military?",
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            systemMessage: "I corrected that for you.",
+            commands: [
+              "setField-leads, military_affiliation:boolInvert",
+              "nextCommand:onFieldPresent"
+            ]
+          },
+          unknown: {
+            systemMessage: "I missed that.",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: [
+              "setField-leads, military_affiliation:boolFalse",
+              "nextCommand:onFieldPresent"
+            ]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "Got it.",
+            commands: [
+              "setField-leads, military_affiliation:boolFalse",
+              "nextCommand:onFieldPresent"
+            ]
           }
         }
       }
@@ -1293,33 +1467,39 @@ const policyTypeDialog = {
           validators: [
             {
               name: "llmBoolean"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            commands: ["nextCommand:onFieldEmpty"]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't get that.",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "We asked the user: Are you looking to get an Auto Policy or a motorcycle policy? Please extract the answer and return either Auto or Motorcycle in the format: extracted: data-here."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Are you looking to get an auto or a motorcycle policy?",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. You are looking to get an <policy_type> policy.  Correct?",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -1351,38 +1531,50 @@ const policyStartTodayTomorrowDialog = {
           }
         }
       },
-      hasPolicyStartTodayTomorrow: {
+      onFieldPresent: {
         systemMessage:
           "Do you want the start date for your policy to be today or tomorrow?",
         userValidators: {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: Do you want the start date for your policy to be today or tomorrow? Please extract the answer and return either today, tomorrow or neither in the format: extracted: data-here."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "I didn't get that",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: Do you want the start date for your policy to be today or tomorrow? Please extract the answer and return either today, tomorrow or neither in the format of the month and then provide a number for the day of month and the year.  For example, March 4th, 2000.  Although, they may provide the number for the month as well, e.g., 1 11 2024, would be January 11th, 2024.  Please return the extracted data in the format: extracted: Month, day, year, .e.g.,  January 22, 2024."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -1414,38 +1606,24 @@ const policyStartDateDialog = {
           }
         }
       },
-      hasPolicyStartDate: {
-        systemMessage:
-          "What is the preferred start date for your insurance policy?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
-            {
-              name: ""
-            },
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "We asked the user: What is the preferred start date for your insurance policy?  Please extract the date.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2000.  Although, they may provide the number for the month as well, e.g., 1 11 2024, would be January 11th, 2024.  Please return the extracted data in the format: extracted: Month, day, year, .e.g.,  January 22, 2024."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
-            commands: ["nextCommand:onFieldPresent"]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -1477,38 +1655,24 @@ const licenseStatusDialog = {
           }
         }
       },
-      hasLicenseStatus: {
-        systemMessage:
-          "Do you have a valid and current drivers license, permit or neither?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
-            {
-              name: "llmBooleanOrExtract"
-            },
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "We asked the user: Do you have a valid and current drivers license, permit or neither?  Please extract their answer in the format: extracted: drivers license, permit, or neither."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
-            commands: ["nextCommand:onFieldPresent"]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -1547,33 +1711,43 @@ const licenseStateDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: Which US state or foreign country issued your valid driver's license?  Please extract their answer to the question.  In the case of U.S. states, please extract the state and return the two digit abbreviation for that US state, e.g., CA when the consumer says California.  For District of Columbia, please return DC. Please return the State abbreviation in the format: extracted: state-abbreviation-here.  Here is the list of US states with their abbreviation:  Alabama: AL, Alaska: AK, Arizona: AZ, Arkansas: AR, California: CA, Colorado: CO, Connecticut: CT, Delaware: DE, District of Columbia: DC, Florida: FL, Georgia: GA, Hawaii: HI, Idaho: ID, Illinois: IL, Indiana: IN, Iowa: IA, Kansas: KS, Kentucky: KY, Louisiana: LA, Maine: ME, Maryland: MD, Massachusetts: MA, Michigan: MI, Minnesota: MN, Mississippi: MS, Missouri: MO, Montana: MT, Nebraska: NE, Nevada: NV, New Hampshire: NH, New Jersey: NJ, New Mexico: NM, New York: NY, North Carolina: NC, North Dakota: ND, Ohio: OH, Oklahoma: OK, Oregon: OR, Pennsylvania: PA, Rhode Island: RI, South Carolina: SC, South Dakota: SD, Tennessee: TN, Texas: TX, Utah: UT, Vermont: VT, Virginia: VA, Washington: WA, West Virginia: WV, Wisconsin: WI, Wyoming: WY."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Which state issued you your driver's license?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. Your driver's license is from <license_state>.  Correct?",
+            systemMessage: "I didn't get that",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: Which US state or foreign country issued your valid driver's license?  Please extract their answer to the question.  In the case of U.S. states, please extract the state and return the two digit abbreviation for that US state, e.g., CA when the consumer says California.  For District of Columbia, please return DC. Please return the State abbreviation in the format: extracted: state-abbreviation-here.  Here is the list of US states with their abbreviation:  Alabama: AL, Alaska: AK, Arizona: AZ, Arkansas: AR, California: CA, Colorado: CO, Connecticut: CT, Delaware: DE, District of Columbia: DC, Florida: FL, Georgia: GA, Hawaii: HI, Idaho: ID, Illinois: IL, Indiana: IN, Iowa: IA, Kansas: KS, Kentucky: KY, Louisiana: LA, Maine: ME, Maryland: MD, Massachusetts: MA, Michigan: MI, Minnesota: MN, Mississippi: MS, Missouri: MO, Montana: MT, Nebraska: NE, Nevada: NV, New Hampshire: NH, New Jersey: NJ, New Mexico: NM, New York: NY, North Carolina: NC, North Dakota: ND, Ohio: OH, Oklahoma: OK, Oregon: OR, Pennsylvania: PA, Rhode Island: RI, South Carolina: SC, South Dakota: SD, Tennessee: TN, Texas: TX, Utah: UT, Vermont: VT, Virginia: VA, Washington: WA, West Virginia: WV, Wisconsin: WI, Wyoming: WY."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -1612,33 +1786,43 @@ const licenseNumberDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: Including letters and or numbers, what is your driver's license number?  Please say letters as the letter with a word example.  For example, A as in apple. Please extract their license number as a string of numbers and/or letters.  If the person says A as in Apple or something similar, just return that letter.  Please return the driver's license number in the format: extracted: A3785490."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. Please slowly spell out your license number.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. Your driver's license number is <license_number: spelledOut>. correct?",
+            systemMessage: "I missed that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: Including letters and or numbers, what is your driver's license number?  Please say letters as the letter with a word example.  For example, A as in apple. Please extract their license number as a string of numbers and/or letters.  If the person says A as in Apple or something similar, just return that letter.  Please return the driver's license number in the format: extracted: A3785490."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -1670,33 +1854,19 @@ const licenseRevokedDialog = {
           }
         }
       },
-      hasLicenseRevoked: {
-        systemMessage:
-          "Has your license been suspended or revoked in the last five years?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -1729,33 +1899,19 @@ const sr22Dialog = {
           }
         }
       },
-      hasSr22: {
-        systemMessage:
-          "Do you require and SR22 or FR44? If you do not know then you most likely do not need this, and just say no.",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -1788,33 +1944,19 @@ const currentlyInsuredDialog = {
           }
         }
       },
-      hasCurrentlyInsured: {
-        systemMessage:
-          "Do you have an insurance policy that is active at this moment?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -1847,33 +1989,19 @@ const lapseInSixMonthsDialog = {
           }
         }
       },
-      hasLapseInSixMonths: {
-        systemMessage:
-          "[if yes] Have you continuously had insurance for the last 6 months without a lapse in coverage?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -1906,33 +2034,19 @@ const lapseOverFifteenDaysDialog = {
           }
         }
       },
-      hasLapseOverFifteenDays: {
-        systemMessage:
-          "[if no] Was your lapse in coverage greater than 15 days?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -1965,38 +2079,24 @@ const lapseReasonDialog = {
           }
         }
       },
-      hasLapseReason: {
-        systemMessage:
-          "What was the reason for your lapse in coverage?  You can say did not drive, did not own a vehicle, traveled abroad, medical condition or something else.",
+      onFieldEmpty: {
         userValidators: {
           validators: [
-            {
-              name: ""
-            },
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "We asked the user: What was the reason for your lapse in coverage?  You can say did not drive, did not own a vehicle, traveled abroad, medical condition or something else. Please extract their answer in the format: extracted: vehicle, traveled abroad, medical condition or something else."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
-            commands: ["nextCommand:onFieldPresent"]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2028,38 +2128,24 @@ const lapseReasonOtherDialog = {
           }
         }
       },
-      hasLapseReasonOther: {
-        systemMessage:
-          "If the reason for your lapse in coverage was something else, what was it?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
-            {
-              name: ""
-            },
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "We asked the user: If the reason for your lapse in coverage was something else, what was it?. Please extract their answer in the format: extracted: lapse-in-coverage-reason."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
-            commands: ["nextCommand:onFieldPresent"]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2091,33 +2177,19 @@ const driverCourseDialog = {
           }
         }
       },
-      hasDriverCourse: {
-        systemMessage:
-          "Have you completed a defensive driving course in the last three years?  This should not be confused with traffic school to prevent a ticket from being reported.",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
-              name: ""
-            },
-            {
               name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
-          },
-          invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+          invalid: {
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -2150,38 +2222,24 @@ const driverCourseDateDialog = {
           }
         }
       },
-      hasDriverCourseDate: {
-        systemMessage:
-          "(if yes) When did you complete the defensive driving course?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
-            {
-              name: ""
-            },
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "We asked the user: When did you complete the defensive driving course? Please extract the date that they provide.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2020.  Although, they may provide the number for the month as well, e.g., 3 4 2020, would be March 4, 2020.  Please return the extracted data as Month, day, year:  June 11, 1971, in the format: extracted: Month, day, year, .e.g.,  January 22, 2024."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
-            commands: ["nextCommand:onFieldPresent"]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2220,33 +2278,43 @@ const accidentsDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: How many accidents, either at fault or not at fault, have you had in the last three years? Please extract the number of accidents that they respond with as a number, e.g, 3.  Please extract their answer in the format: extracted: #."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. How many accidents have you had in the last three years regardless of fault?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. In the last three years have you had <accidents> accidents?",
+            systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: How many accidents, either at fault or not at fault, have you had in the last three years? Please extract the number of accidents that they respond with as a number, e.g, 3.  Please extract their answer in the format: extracted: #."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2284,28 +2352,34 @@ const accidentsAtFaultDialog = {
           validators: [
             {
               name: "llmBoolean"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            commands: ["nextCommand:onFieldEmpty"]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't understand that.",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. What type of accident were you involved in?",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. You were involved in a <incidents.type>.  Correct?",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -2345,33 +2419,43 @@ const accidentDateDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: On which year and date did you have your accident?  Please extract the date that they provide.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2020.  Although, they may provide the number for the month as well, e.g., 3 4 2020, would be March 4, 2020.  Please return the data in the format Month, day, year:  June 11, 2022, in the format: extracted: Month, day, year, .e.g.,  January 22, 2022."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. What was the date of the accident?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. The date of the accident was <incidents.incident_date>.  Correct?",
+            systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: On which year and date did you have your accident?  Please extract the date that they provide.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2020.  Although, they may provide the number for the month as well, e.g., 3 4 2020, would be March 4, 2020.  Please return the data in the format Month, day, year:  June 11, 2022, in the format: extracted: Month, day, year, .e.g.,  January 22, 2022."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2410,23 +2494,14 @@ const claimsDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: How many non accident claims have you made in the last 5 years?  Please extract the number of claims that they respond with as a number, e.g, 3.  Please extract their answer in the format: extracted: #."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
@@ -2435,6 +2510,27 @@ const claimsDialog = {
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: How many non accident claims have you made in the last 5 years?  Please extract the number of claims that they respond with as a number, e.g, 3.  Please extract their answer in the format: extracted: #."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2472,23 +2568,14 @@ const claimDateDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: What was the date of your claim?  Please extract the date that they provide.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2020.  Although, they may provide the number for the month as well, e.g., 3 4 2020, would be March 4, 2020.  Please return the data in the format Month, day, year:  June 11, 2022, in the format: extracted: Month, day, year .e.g.,  January 22, 2022."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
@@ -2497,6 +2584,27 @@ const claimDateDialog = {
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: What was the date of your claim?  Please extract the date that they provide.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2020.  Although, they may provide the number for the month as well, e.g., 3 4 2020, would be March 4, 2020.  Please return the data in the format Month, day, year:  June 11, 2022, in the format: extracted: Month, day, year .e.g.,  January 22, 2022."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2528,32 +2636,19 @@ const claimGreaterThan1kDialog = {
           }
         }
       },
-      onFieldPresent: {
-        systemMessage: "Was the claim for more than one thousand dollars?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
-              name: ""
-            },
-            {
               name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
-          },
-          invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+          invalid: {
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -2593,23 +2688,14 @@ const violationsDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: How many traffic tickets or moving violations have you had in the last three years?  Please extract the number that they respond with as a number, e.g, 3.   Please extract their answer in the format: extracted: #."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
@@ -2618,6 +2704,27 @@ const violationsDialog = {
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: How many traffic tickets or moving violations have you had in the last three years?  Please extract the number that they respond with as a number, e.g, 3.   Please extract their answer in the format: extracted: #."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2649,37 +2756,24 @@ const violationDateDialog = {
           }
         }
       },
-      onFieldPresent: {
-        systemMessage: "What was the date of your most recent traffic ticket?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
-            {
-              name: ""
-            },
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "We asked the user: What was the date of your most recent traffic ticket?  Please extract the date that they provide.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2020.  Although, they may provide the number for the month as well, e.g., 3 4 2020, would be March 4, 2020.  Please return the data in the format Month, day, year:  June 11, 2022, in the format: extracted: Month, day, year .e.g.,  January 22, 2022."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
-            commands: ["nextCommand:onFieldPresent"]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2717,23 +2811,14 @@ const violationTypeDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: What was the reason for your ticket or violation?  Please take the users response and select the closest match from the following options: arterial violation, attempt to elude officer, backing illegally, careless driving, child safety restraint, deviate lane/cross centerline, driving against traffic/one way, driving while intoxicated/drugs, driving without lights, driving the wrong side of hwy/road, failure to dim lights, failure to give signal, failure to keep vehicle under control, failure to obey sign/signal, failure to dim lights, failure to give signal, failure to keep vehicle under control, failure to obey sign/signal, failure to report accident/leave scene, failure to stop after accident, failure to stop for a school bus, failure yield right of way to vehicle or pedestrian in an emergency zone, following too close, hit and run, illegal turn, illegal/unlawful use of license, implied consent, improper lane change, improper lane use, imprudent speed/driving, inattentive driving, miscellaneous minor violation, neg homicide/manslaughter, negligent driving, miscellaneous minor violation, negligent homicide/manslaughter, negligent driving, obstructing traffic, open container, operating after revocation, operating after suspension, operating without a license, operating on expired license, parking on highway/street, passing illegally/improper, racing/sp contest/drag racing, reckless driving, refusal of breath/blood test, speed, too fast for conditions, unnecessary acceleration, vehicle used in/with felony, vehicular assault, violation license restriction. Please extract their answer in the format: extracted: ticket-reason."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
@@ -2742,6 +2827,27 @@ const violationTypeDialog = {
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: What was the reason for your ticket or violation?  Please take the users response and select the closest match from the following options: arterial violation, attempt to elude officer, backing illegally, careless driving, child safety restraint, deviate lane/cross centerline, driving against traffic/one way, driving while intoxicated/drugs, driving without lights, driving the wrong side of hwy/road, failure to dim lights, failure to give signal, failure to keep vehicle under control, failure to obey sign/signal, failure to dim lights, failure to give signal, failure to keep vehicle under control, failure to obey sign/signal, failure to report accident/leave scene, failure to stop after accident, failure to stop for a school bus, failure yield right of way to vehicle or pedestrian in an emergency zone, following too close, hit and run, illegal turn, illegal/unlawful use of license, implied consent, improper lane change, improper lane use, imprudent speed/driving, inattentive driving, miscellaneous minor violation, neg homicide/manslaughter, negligent driving, miscellaneous minor violation, negligent homicide/manslaughter, negligent driving, obstructing traffic, open container, operating after revocation, operating after suspension, operating without a license, operating on expired license, parking on highway/street, passing illegally/improper, racing/sp contest/drag racing, reckless driving, refusal of breath/blood test, speed, too fast for conditions, unnecessary acceleration, vehicle used in/with felony, vehicular assault, violation license restriction. Please extract their answer in the format: extracted: ticket-reason."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2779,23 +2885,14 @@ const driversDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: How many drivers will be on your policy?  Please extract the number of drivers that they respond with as a number, e.g, 3.   Please extract their answer in the format: extracted: #."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
@@ -2804,6 +2901,27 @@ const driversDialog = {
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: How many drivers will be on your policy?  Please extract the number of drivers that they respond with as a number, e.g, 3.   Please extract their answer in the format: extracted: #."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -2842,19 +2960,14 @@ const householdMemberNotOnPolicyDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
@@ -2862,6 +2975,23 @@ const householdMemberNotOnPolicyDialog = {
           },
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmBoolean"
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -2894,33 +3024,20 @@ const householdMemberNotOnPolicyDrivingDialog = {
           }
         }
       },
-      onFieldPresent: {
-        systemMessage: "Will any of those people be driving the vehicle?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage:
               "Thanks! We will need to get their name, date of birth and license number.",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -2953,38 +3070,24 @@ const excludedFromPolicyDialog = {
           }
         }
       },
-      onFieldPresent: {
-        systemMessage:
-          "How many people living in your household fifteen years or older will be excluded from the policy?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
-            {
-              name: "llmBoolean"
-            },
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "We asked the user: How many people living in your household fifteen years or older will be excluded from the policy?  Please extract the number of people that they respond with as a number, e.g, 3.   Please extract their answer in the format: extracted: #."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3023,31 +3126,39 @@ const excludedDriverFirstNameDialog = {
           validators: [
             {
               name: "llmBoolean"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            commands: ["nextCommand:onFieldEmpty"]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't understand that.",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "Attempt to extract the user's first name.  They have been instructed to pronounce their first name and then spell out their first name. Please use these two pieces of data (if available) to correctly extract their first name. Please extract their answer in the format: first_name."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3079,38 +3190,24 @@ const excludedDriverLastNameDialog = {
           }
         }
       },
-      onFieldPresent: {
-        systemMessage:
-          "Please say and spell out the legal last name of the excluded driver.",
+      onFieldEmpty: {
         userValidators: {
           validators: [
-            {
-              name: "llmBoolean"
-            },
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "Attempt to extract the user's last name.  They have been instructed to pronounce their last name and then spell out their last name. Please use these two pieces of data (if available) to correctly extract their last name. Please extract their answer in the format: extracted: last_name."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3142,37 +3239,23 @@ const excludedDriverBirthDateDialog = {
           }
         }
       },
-      onFieldPresent: {
-        systemMessage:
-          "What is the birthdate of the excluded driver?  For example, March 18th, 1998.",
+      onFieldEmpty: {
         userValidators: {
           validators: [
-            {
-              name: ""
-            },
             {
               name: "",
               params: {
                 instructionsOverride:
                   "We asked the user for the year in which someone was born.  Please extract their birthdate.  User's typically say the month and then provide a number for the day of month and the year.  For example, March 4th, 2000.  Although, they may provide the number for the month as well, e.g., 6 11 1971, would be june 11th 1971.  Please return the data in the format Month, day, year:  June 11, 2022, in the format: extracted: Month, day, year .e.g.,  January 22, 2022."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
-          },
-          invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+          invalid: {
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -3212,31 +3295,39 @@ const excludedDriverLicenseStateDialog = {
           validators: [
             {
               name: "llmBoolean"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            commands: ["nextCommand:onFieldEmpty"]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't understand that.",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmExtract",
               params: {
                 instructionsOverride:
                   "We asked the user: Which US state or foreign country issued an excluded driver's valid driver's license? Please extract their answer to the question.  In the case of U.S. states, please extract the state and return the two digit abbreviation for that US state, e.g., CA when the consumer says California.  For District of Columbia, please return DC. Please return the State abbreviation in the format: extracted: state-abbreviation-here.  Here is the list of US states with their abbreviation:  Alabama: AL, Alaska: AK, Arizona: AZ, Arkansas: AR, California: CA, Colorado: CO, Connecticut: CT, Delaware: DE, District of Columbia: DC, Florida: FL, Georgia: GA, Hawaii: HI, Idaho: ID, Illinois: IL, Indiana: IN, Iowa: IA, Kansas: KS, Kentucky: KY, Louisiana: LA, Maine: ME, Maryland: MD, Massachusetts: MA, Michigan: MI, Minnesota: MN, Mississippi: MS, Missouri: MO, Montana: MT, Nebraska: NE, Nevada: NV, New Hampshire: NH, New Jersey: NJ, New Mexico: NM, New York: NY, North Carolina: NC, North Dakota: ND, Ohio: OH, Oklahoma: OK, Oregon: OR, Pennsylvania: PA, Rhode Island: RI, South Carolina: SC, South Dakota: SD, Tennessee: TN, Texas: TX, Utah: UT, Vermont: VT, Virginia: VA, Washington: WA, West Virginia: WV, Wisconsin: WI, Wyoming: WY."
               }
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3275,23 +3366,14 @@ const excludedDriverLicenseNumberDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: Including letters and or numbers, what is your driver's license number?  Please say letters as the letter with a word example.  For example, A as in apple. Please extract their license number as a string of numbers and/or letters.  If the person says A as in Apple or something similar, just return that letter.   Please return the driver's license number in the format: extracted: A3785490."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
@@ -3300,6 +3382,27 @@ const excludedDriverLicenseNumberDialog = {
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: Including letters and or numbers, what is your driver's license number?  Please say letters as the letter with a word example.  For example, A as in apple. Please extract their license number as a string of numbers and/or letters.  If the person says A as in Apple or something similar, just return that letter.   Please return the driver's license number in the format: extracted: A3785490."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3331,33 +3434,19 @@ const haveVinDialog = {
           }
         }
       },
-      onFieldPresent: {
-        systemMessage:
-          "Do you have the vehicle identification number or vin number?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
-              name: "llmBooleanOrExtract"
-            },
-            {
               name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
-          },
-          invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+          invalid: {
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -3390,33 +3479,19 @@ const haveRegistrationPolicyDialog = {
           }
         }
       },
-      onFieldPresent: {
-        systemMessage:
-          "Do you currently have access to your registration or current insurance information? The vin number for the vehicle can be found on those documents.",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -3456,23 +3531,14 @@ const vinDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: What is the 17 character VIN number for the vehicle?  Please say letters as the letter with a word example.  For example, A as in apple.  Please extract the VIN.  A standard VIN is 17 characters long and includes a combination of digits and capital letters. It's important to note that the letters I (i), O (o), and Q (q) are not used in VINs to avoid confusion with the numbers 1 and 0. Please return the VIN, vehicle identification number, in the format: extracted: 1HGCM82633A004352"
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
@@ -3481,6 +3547,27 @@ const vinDialog = {
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: What is the 17 character VIN number for the vehicle?  Please say letters as the letter with a word example.  For example, A as in apple.  Please extract the VIN.  A standard VIN is 17 characters long and includes a combination of digits and capital letters. It's important to note that the letters I (i), O (o), and Q (q) are not used in VINs to avoid confusion with the numbers 1 and 0. Please return the VIN, vehicle identification number, in the format: extracted: 1HGCM82633A004352"
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3518,7 +3605,28 @@ const yearDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
+            }
+          ],
+          valid: {
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
+          },
+          invalid: {
+            commands: ["nextCommand:onFieldEmpty"]
+          },
+          extracted: {
+            systemMessage: "Great. ",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          unknown: {
+            systemMessage: "I'm sorry, I didn't understand that.",
+            commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
             {
               name: "llmExtract",
               params: {
@@ -3535,21 +3643,11 @@ const yearDialog = {
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. What year is your vehicle?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "Great. ",
-            commands: ["nextCommand:onFieldPresent"]
-          },
-          unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that.  Your vehicle is a <year>.  Correct?",
-            commands: ["nextCommand:onFieldPresent"]
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3587,33 +3685,43 @@ const makeDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: What is the make of your vehicle? The make of a vehicle is the manufacturer, e.g., Volvo, General Motors, etc.  Please extract the make in the format: extracted: make."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. What is the make of your vehicle?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. The make of your vehicle is <make>.  Correct?",
+            systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: What is the make of your vehicle? The make of a vehicle is the manufacturer, e.g., Volvo, General Motors, etc.  Please extract the make in the format: extracted: make."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3651,33 +3759,43 @@ const modelDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: What is the model of your vehicle? The model of a vehicle refers to a specific version or design of a car made by a manufacturer. Each model has its own unique name or number (and sometimes both) which differentiates it from other models produced by the same manufacturer. For example, Toyota, produces the models Camry, Corolla, RAV4, and Prius.  Please extract the model in the format: extracted: model."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. What is the model of your vehicle?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that. The make of your vehicle is <model>.  Correct?",
+            systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: What is the model of your vehicle? The model of a vehicle refers to a specific version or design of a car made by a manufacturer. Each model has its own unique name or number (and sometimes both) which differentiates it from other models produced by the same manufacturer. For example, Toyota, produces the models Camry, Corolla, RAV4, and Prius.  Please extract the model in the format: extracted: model."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3716,23 +3834,14 @@ const ownershipDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: Do you own this vehicle outright, lease the vehicle or are you making payments to a finance company for this vehicle? Please extract their answer and return, own, lease or finance in the following format: extracted: vehicle-ownership-answer."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
@@ -3741,6 +3850,27 @@ const ownershipDialog = {
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: Do you own this vehicle outright, lease the vehicle or are you making payments to a finance company for this vehicle? Please extract their answer and return, own, lease or finance in the following format: extracted: vehicle-ownership-answer."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3779,33 +3909,43 @@ const financeCompanyDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the consumer: What is the name of the Finance Company?  Please extract the name of the company and return in the following format: extracted: finance-company-name."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. What is the name of the finance company for you vehicle?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
             commands: ["nextCommand:onFieldPresent"]
           },
           unknown: {
-            systemMessage:
-              "I'm sorry, I didn't understand that.  Is the finance company for your vehicle <finance_company>?",
+            systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the consumer: What is the name of the Finance Company?  Please extract the name of the company and return in the following format: extracted: finance-company-name."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3844,24 +3984,14 @@ const vehiclesDialog = {
           validators: [
             {
               name: "llmBooleanOrExtract"
-            },
-            {
-              name: "llmExtract",
-              params: {
-                instructionsOverride:
-                  "We asked the user: How many vehicles would you like to add to your policy?  Please extract the number of vehicles that they respond with as a number, e.g, 3. Please extract their answer in the format: extracted: #."
-              }
-            },
-            ""
+            }
           ],
           valid: {
-            systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            systemMessage: "Thank you for confirming!",
+            commands: ["nextTopic"]
           },
           invalid: {
-            systemMessage:
-              "I'm sorry, I didn't catch that. How many vehicles would you like to insure under your polilcy?",
-            commands: ["nextCommand:onFieldEmpty", "nextCommand:onFieldEmpty"]
+            commands: ["nextCommand:onFieldEmpty"]
           },
           extracted: {
             systemMessage: "Great. ",
@@ -3870,6 +4000,27 @@ const vehiclesDialog = {
           unknown: {
             systemMessage: "I'm sorry, I didn't understand that.",
             commands: ["nextCommand:onFieldPresent"]
+          }
+        }
+      },
+      onFieldEmpty: {
+        userValidators: {
+          validators: [
+            {
+              name: "llmExtract",
+              params: {
+                instructionsOverride:
+                  "We asked the user: How many vehicles would you like to add to your policy?  Please extract the number of vehicles that they respond with as a number, e.g, 3. Please extract their answer in the format: extracted: #."
+              }
+            }
+          ],
+          valid: {
+            systemMessage: "Thanks!",
+            commands: ["nextCommand:onFieldPresent"]
+          },
+          invalid: {
+            systemMessage: "I didn't understand that",
+            commands: ["nextCommand:onFieldEmpty"]
           }
         }
       }
@@ -3901,33 +4052,19 @@ const primaryPurposeDialog = {
           }
         }
       },
-      hasPrimaryPurpose: {
-        systemMessage:
-          "Aside from driving to and from work, do you use your vehicle for business purposes?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }
@@ -3960,32 +4097,19 @@ const damagedDialog = {
           }
         }
       },
-      hasDamaged: {
-        systemMessage: "Does the vehicle currently have any unrepaired damage?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
-            commands: ["nextTopic", "nextCommand:onFieldPresent"]
+            commands: ["nextCommand:onFieldPresent"]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: ["", "nextCommand:onFieldEmpty"]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [""]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: ["nextCommand:onFieldPresent"]
           }
         }

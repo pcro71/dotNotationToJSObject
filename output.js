@@ -26,40 +26,21 @@ const damagedDialog = {
           }
         }
       },
-      hasDamaged: {
-        systemMessage: "Does the vehicle currently have any unrepaired damage?",
+      onFieldEmpty: {
         userValidators: {
           validators: [
             {
               name: "llmBoolean"
-            },
-            {
-              name: "llmBoolean"
-            },
-            ""
+            }
           ],
           valid: {
             systemMessage: "Thanks!",
             commands: [
-              "nextTopic",
               "nextCommand:onFieldPresent"
             ]
           },
           invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: [
-              "",
-              "nextCommand:onFieldEmpty"
-            ]
-          },
-          extracted: {
-            systemMessage: "",
-            commands: [
-              ""
-            ]
-          },
-          unknown: {
-            systemMessage: "I'm sorry, I didn't understand that.",
+            systemMessage: "Got it.",
             commands: [
               "nextCommand:onFieldPresent"
             ]
@@ -67,7 +48,7 @@ const damagedDialog = {
         }
       }
     }
-  }
+  },
 };
 
 export default {damagedDialog};
