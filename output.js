@@ -1,6 +1,6 @@
-const primaryPurposeDialog = {
-  primary_purpose: {
-    contextFieldName: "primary_purpose",
+const damagedDialog = {
+  damaged: {
+    contextFieldName: "damaged",
     contextModelName: "vehicles",
     initialCommandName: "isFieldPresent",
     commands: {
@@ -10,7 +10,7 @@ const primaryPurposeDialog = {
             {
               name: "fieldPresent",
               params: {
-                fieldName: "primary_purpose"
+                fieldName: "damaged"
               }
             }
           ],
@@ -26,27 +26,30 @@ const primaryPurposeDialog = {
           }
         }
       },
-      onFieldPresent: {
-        systemMessage: "You do, do not drive your vehicles for business or commercial purposes, not including driving to and from work.  Correct?",
+      hasDamaged: {
+        systemMessage: "Does the vehicle currently have any unrepaired damage?",
         userValidators: {
           validators: [
             {
-              name: "llmBoolean",
-              params: {
-                appendAffirmative: ", that's me."
-              }
-            }
+              name: "llmBoolean"
+            },
+            {
+              name: "llmBoolean"
+            },
+            ""
           ],
           valid: {
-            systemMessage: "Thank you for confirming!",
+            systemMessage: "Thanks!",
             commands: [
-              "nextTopic"
+              "nextTopic",
+              "nextCommand:onFieldPresent"
             ]
           },
           invalid: {
-            systemMessage: "I'm sorry, ",
+            systemMessage: "I'm sorry, I didn't catch that.",
             commands: [
-              ""
+              "",
+              "nextCommand:onFieldEmpty"
             ]
           },
           extracted: {
@@ -62,34 +65,9 @@ const primaryPurposeDialog = {
             ]
           }
         }
-      },
-      onFieldEmpty: {
-        systemMessage: [
-          "Aside from driving to and from work, do you use your vehicle for business purposes?"
-        ],
-        userValidators: {
-          validators: [
-            {
-              name: "llmBoolean"
-            },
-            ""
-          ],
-          extracted: {
-            systemMessage: "Thanks!",
-            commands: [
-              "nextCommand:onFieldPresent"
-            ]
-          },
-          invalid: {
-            systemMessage: "I'm sorry, I didn't catch that.",
-            commands: [
-              "nextCommand:onFieldEmpty"
-            ]
-          }
-        }
       }
     }
   }
 };
 
-export default {primaryPurposeDialog};
+export default {damagedDialog};
